@@ -1,15 +1,12 @@
 # #####################################################
-# Python Library for 3x4 matrix keypad using
-# 7 of the avialable GPIO pins on the Raspberry Pi. 
+# Read 3x4 matrix keypad and toggle byte in armed.txt
+#
+# Arming and disarming logic by Jeff Highsmith
+# June 2013
 # 
-# This could easily be expanded to handle a 4x4 but I 
-# don't have one for testing. The KEYPAD constant 
-# would need to be updated. Also the setting/checking
-# of the colVal part would need to be expanded to 
-# handle the extra column.
-# 
-# Written by Chris Crumpacker
+# Keypad-reading library written by Chris Crumpacker
 # May 2013
+# http://crumpspot.blogspot.com/2013/05/using-3x4-matrix-keypad-with-raspberry.html
 #
 # main structure is adapted from Bandono's
 # matrixQPI which is wiringPi based.
@@ -95,8 +92,8 @@ if __name__ == '__main__':
     # Initialize the keypad class
     kp = keypad()
     attempt = "0000"
-    passcode = "3717"    
-    haltcode = "6834"
+    passcode = "1912"    
+    haltcode = "5764"
     with open("/home/pi/Alarm/armed.txt", "r+") as fo:
         fo.seek(0, 0)
         fo.write("0")
@@ -108,7 +105,7 @@ if __name__ == '__main__':
     GPIO.setup(9, GPIO.OUT) #Red
     GPIO.output(9, GPIO.LOW)
     GPIO.setup(7, GPIO.OUT) #Flashing Light
-#    GPIO.output(7, GPIO.LOW)
+    GPIO.output(7, GPIO.LOW)
 
     subprocess.call("mpg123 /home/pi/Alarm/ready.mp3", shell=True)
 
@@ -127,7 +124,6 @@ if __name__ == '__main__':
             with open("/home/pi/Alarm/armed.txt", "r+") as fo:
                 fo.seek(0, 0)
                 status = fo.read(1)
-                print "Correct Passcode, file was:" + status
             fo.closed
             if (status == "1"):
                 #system was armed, disarm it
@@ -139,57 +135,17 @@ if __name__ == '__main__':
                 GPIO.output(9, GPIO.LOW) #Red LED off
                 GPIO.output(7, GPIO.LOW)
                 subprocess.call("mpg123 /home/pi/Alarm/disarmed.mp3", shell=True)
-                #subprocess.call('echo "System disarmed." | festival --tts', shell=True) 
             else:
                 GPIO.output(10, GPIO.LOW) #Green LED Off
                 GPIO.output(9, GPIO.HIGH) #Red LED on
-#                GPIO.output(7, GPIO.HIGH)
                 subprocess.call("mpg123 /home/pi/Alarm/armed.mp3", shell=True)
                 time.sleep(10)
                 with open("/home/pi/Alarm/armed.txt", "r+") as fo:
                     fo.seek(0, 0)
                     fo.write("1")
                 fo.closed
-                #subprocess.call('echo "System armed." | festival --tts', shell=True)
         elif (attempt == haltcode):
             subprocess.call("mpg123 /home/pi/Alarm/shutdown.mp3", shell=True)
             subprocess.call("halt", shell=True)
-        
-        # Make video alarm system voiceovers:
-        elif (attempt == "0001"):
-        	time.sleep(10)
-        	subprocess.call("mpg123 /home/pi/Alarm/vo/0001.mp3", shell=True)
-        elif (attempt == "0002"):
-        	time.sleep(10)
-        	subprocess.call("mpg123 /home/pi/Alarm/vo/0002.mp3", shell=True)
-        elif (attempt == "1003"):
-        	time.sleep(10)
-        	GPIO.output(7, GPIO.HIGH)
-        	time.sleep(1)
-        	subprocess.call("mpg123 /home/pi/Alarm/vo/0003.mp3", shell=True)
-        	time.sleep(1)
-        	GPIO.output(7, GPIO.LOW)
-        elif (attempt == "0004"):
-        	time.sleep(10)
-        	subprocess.call("mpg123 /home/pi/Alarm/vo/0004.mp3", shell=True)
-        elif (attempt == "0005"):
-        	time.sleep(10)
-        	subprocess.call("mpg123 /home/pi/Alarm/vo/0005.mp3", shell=True)
-        elif (attempt == "0006"):
-        	time.sleep(3)
-        	GPIO.output(7, GPIO.HIGH)
-        	subprocess.call("mpg123 /home/pi/Alarm/vo/0006.mp3", shell=True)
-        	subprocess.call("mpg123 /home/pi/Alarm/alarm.mp3", shell=True)
-        	subprocess.call("mpg123 /home/pi/Alarm/vo/0006.mp3", shell=True)
-        	GPIO.output(7, GPIO.LOW)
-        elif (attempt == "0007"):
-        	time.sleep(10)
-        	subprocess.call("mpg123 /home/pi/Alarm/vo/0007.mp3", shell=True)
-        elif (attempt == "0008"):
-        	time.sleep(10)
-        	subprocess.call("mpg123 /home/pi/Alarm/vo/0008.mp3", shell=True)
-        elif (attempt == "0009"):
-        	time.sleep(10)
-        	subprocess.call("mpg123 /home/pi/Alarm/vo/0009.mp3", shell=True)
         
         time.sleep(0.5)
