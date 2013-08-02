@@ -8,7 +8,7 @@ import RPi.GPIO as io
 import tweepy
 import tweetpony
 
-api = tweetpony.API(consumer_key = "ijf5JCxlWLMFdQAAC6PLCQ", consumer_secret = "dAIRyTMNkXjeU09GM9z6OqXvoCnWuOqYWhZA5mrs", access_token = "1480595341-KvFxkXATJXVvuJrqxp7RldWtHAkHUh9KmT7Hnfd", access_token_secret = "1XiknliCvHTwbSe2ZY41n8Cj0Qtejb3SXGzrqQdkV1Q")
+api = tweetpony.API(consumer_key = "abcd", consumer_secret = "efgh", access_token = "ijkl", access_token_secret = "mnop")
 
 io.setmode(io.BCM)
 
