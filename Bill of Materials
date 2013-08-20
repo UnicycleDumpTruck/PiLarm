@@ -1,0 +1,24 @@
+Raspberry Pi
+SD card with Raspbian
+PS3 Eye Camera
+WiFi adaptor from Adafruit
+USB micro panel mount jack from Adafruit
+MAX98306 Stereo Amplifier from Adafruit
+Bit of female header to mount amp on board
+4-ohm, 3 watt speaker from Adafruit
+Full size Perma-Proto for Raspberry Pi from Adafruit
+Flat ribbon cable to connect RPi to Perma-Proto, came with my Pi Cobbler
+Half of a 3.5 mm audio cable to connect the RPi to the audio amp
+3x4 matrix keypad from Adafruit
+PIR sensor from Adafruit
+Red and Green LEDs 
+Metal panel mount LED holders from RadioShack
+Two 370 ohm resistors to limit current on the LEDs
+Blue revolving light from Party City
+TIP120 Darlington Transistor from Adafruit
+1kohm resistor to limit current between RPI and TIP120
+1N5817 Schottky diode to handle back-current from motor on revolving light
+Solder, heat-shrink tubing, and hookup wire
+Big project box from RadioShack, part 270-1809
+Metal circuit board standoffs from RadioShack
+3M Double-sided foam adhesive tape, Very High Bond variety.
