@@ -5,7 +5,6 @@ import datetime
 import time
 import os 
 import RPi.GPIO as io
-import tweepy
 import tweetpony
 
 api = tweetpony.API(consumer_key = "abcd", consumer_secret = "efgh", access_token = "ijkl", access_token_secret = "mnop")
